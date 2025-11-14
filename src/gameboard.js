@@ -35,14 +35,9 @@ export class Gameboard {
     }
 
     placeShip(x, y, ship, orientation) {
-        if (orientation == "right") {
-            for (let i=y; i < y + ship.length; i++) {
-                this.board[x][i].setShip(ship);
-            }
-        } else {
-            for (let i=x; i < x + ship.length; i++) {
-                this.board[i][y].setShip(ship);
-            }
+        const j = orientation == "right" ? y : x;
+        for (let i=j; i < j + ship.length; i++) {
+            this.board[orientation == "right" ? x : i][orientation == "right" ? i : y].setShip(ship);
         }
     }
 
