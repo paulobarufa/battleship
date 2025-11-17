@@ -10,10 +10,10 @@ export class Gameboard {
 
     constructor() {
 
-        for (let i = 0; i < rows; i++) {
-            board[i] = [];
-            for (let j = 0; j < columns; j++) {
-                board[i].push(new Cell());
+        for (let i = 0; i < this.rows; i++) {
+            this.board[i] = [];
+            for (let j = 0; j < this.columns; j++) {
+                this.board[i].push(new Cell());
             }
         }
 
@@ -35,14 +35,14 @@ export class Gameboard {
     }
 
     placeShip(x, y, ship, orientation) {
-        const j = orientation == "right" ? y : x;
+        const j = orientation == "right" ? x : y;
         for (let i=j; i < j + ship.length; i++) {
-            this.board[orientation == "right" ? x : i][orientation == "right" ? i : y].setShip(ship);
+            this.board[orientation == "right" ? i : x][orientation == "right" ? y : i].setShip(ship);
         }
     }
 
     allShipSunk() {
-        return this.ships.every((ship) => {ship.isSunk()})
+        return this.ships.every((ship) => {return ship.isSunk()})
     }
 
 
