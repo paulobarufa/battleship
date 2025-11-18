@@ -6,13 +6,12 @@ export class Ship {
 
     constructor(name, length) {
         this.length = length;
+        this.name = name;
     }
 
     hit() {
         this.hits++;
-        if (this.isSunk()) {
-            this.sunk = true;
-        }
+        this.sunk = this.isSunk();
     }
 
     isSunk() {

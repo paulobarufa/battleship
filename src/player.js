@@ -9,6 +9,10 @@ export class Player {
         this.real = real;
     }
 
+    getGrid() {
+        return this.board.board;
+    }
+
     generateAttack() {
 
     }

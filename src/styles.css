@@ -58,6 +58,31 @@ body {
     width: 600px;
 }
 
+/* Grid styling */
+.player-board {
+    display: flex;
+    gap: 1px;
+    flex-wrap: wrap;
+    height: 340px;
+    width: 340px;
+}
+
+.cell, .label-cell {
+    height: 30px;
+    width: 30px;
+    font-size: 14px;
+}
+
+.cell {
+    border: 0;
+}
+
+.label-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Footer styling */
 .footer {
     height: 40px;
