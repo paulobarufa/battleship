@@ -25,6 +25,22 @@ export class Player {
         return attack;
     }
 
+    validatePosition(row, col, orientation, length) {
+        const board = this.getGrid();
+        if (row + length > 10 && orientation == "right") return false;
+        if (col + length > 10 && orientation == "down") return false;
+        if (orientation == "right") {
+            for (let i = col; i < col+length; i++) {
+                if (board[row][i].hasShip()) return false;
+            }
+        } else {
+            for (let i = row; i < row+length; i++) {
+                if (board[i][col].hasShip()) return false;
+            }
+        }
+        return true;
+    }
+
     arrayContains(arr1, arr2){
         if(JSON.stringify(arr1).includes(JSON.stringify(arr2))) return true;
         return false;

@@ -34,10 +34,10 @@ export class Gameboard {
         }
     }
 
-    placeShip(x, y, ship, orientation) {
-        const j = orientation == "right" ? x : y;
+    placeShip(col, row, ship, orientation) {
+        const j = orientation == "right" ? col : row;
         for (let i=j; i < j + ship.length; i++) {
-            this.board[orientation == "right" ? i : x][orientation == "right" ? y : i].setShip(ship);
+            this.board[orientation == "right" ? i : col][orientation == "right" ? row : i].setShip(ship);
         }
     }
 

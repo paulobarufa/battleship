@@ -10,6 +10,10 @@ export class Cell {
         this.ship = ship;
     }
 
+    hasShip() {
+        return this.ship !== null;
+    }
+
     receiveHit() {
         this.hit = true;
     }

@@ -37,6 +37,7 @@ export class HTMLwriter {
                     cellButton.addEventListener('drop', (e) => {
                         e.preventDefault();
                         const selector = e.dataTransfer.getData("selector");
+                        console.log(selector)
                         cellButton.appendChild(document.querySelector(selector));
                     });
 
@@ -54,6 +55,62 @@ export class HTMLwriter {
                 boardDiv.appendChild(cellButton);
             })
         })
+
+    }
+
+    static generateShips(ships) {
+
+        for (let i=0; i < ships.length; i++) {
+            const shipDiv = document.createElement("div");
+            const ship = ships[i];
+
+            shipDiv.classList.add("player-ship")
+            shipDiv.style.position = "absolute";
+            shipDiv.style.height = "1.85em";
+            shipDiv.style.width = `${2*ship.length}em`;
+            shipDiv.dataset.orientation = "right";
+            shipDiv.dataset.col = "1";
+            shipDiv.dataset.row = 2*i;
+            shipDiv.dataset.id = i;
+            shipDiv.style.paddingRight = `${(2*ship.length)-1}px`;
+            shipDiv.draggable = true;
+
+            shipDiv.addEventListener("dragstart", (e) => {
+                e.dataTransfer.setDragImage(shipDiv, 15, 15);
+                e.dataTransfer.setData("selector", `.player-ship[data-id='${i}']`)
+            })
+            
+            shipDiv.addEventListener("drag", () => {
+                shipDiv.classList.add("beingDragged");
+            })
+
+            shipDiv.addEventListener("dragend", () => {
+                shipDiv.classList.remove("beingDragged");
+            })
+
+            shipDiv.addEventListener("drop", (e) => {
+                e.preventDefault();
+            });
+
+            shipDiv.addEventListener("click", (e) => {
+                const orientation = shipDiv.dataset.orientation;
+                if (orientation == "right") {
+                    shipDiv.style.height = shipDiv.style.width;
+                    shipDiv.style.width = "1.85em"
+                    shipDiv.dataset.orientation = "down"
+                    shipDiv.style.paddingBottom = shipDiv.style.paddingRight
+                    shipDiv.style.paddingRight = "0"
+                } else {
+                    shipDiv.style.width = shipDiv.style.height;
+                    shipDiv.style.height = "1.85em"
+                    shipDiv.dataset.orientation = "right"
+                    shipDiv.style.paddingRight = shipDiv.style.paddingBottom
+                    shipDiv.style.paddingBottom = "0"
+                }
+            })
+
+            document.querySelector(`.player-board > .cell[data-row='${2*i}'][data-col='1']`).appendChild(shipDiv)
+        }
 
     }
 
