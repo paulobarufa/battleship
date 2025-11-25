@@ -27,8 +27,8 @@ export class Player {
 
     validatePosition(row, col, orientation, length) {
         const board = this.getGrid();
-        if (row + length > 10 && orientation == "right") return false;
-        if (col + length > 10 && orientation == "down") return false;
+        if (col + length > 10 && orientation == "right") return false;
+        if (row + length > 10 && orientation == "down") return false;
         if (orientation == "right") {
             for (let i = col; i < col+length; i++) {
                 if (board[row][i].hasShip()) return false;

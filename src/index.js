@@ -1,8 +1,10 @@
 import { HTMLwriter } from "./htmlwriter";
+import { GameController } from "./gamecontroller";
 import { Player } from "./player";
 import "./styles.css";
 
 const humanPlayer = new Player(true);
+const computerPlayer = new Player(false);
 
 const playerBoard = humanPlayer.board;
 const ships = playerBoard.ships;
@@ -17,20 +19,6 @@ playerBoard.placeShip(8, 8, ships[4], "right")
 
 
 HTMLwriter.generateGrid(humanPlayer)
+HTMLwriter.generateGrid(computerPlayer)
+
 HTMLwriter.generateShips(ships)
-
-
-function validatePosition(row, col, orientation, length, board) {
-    if (row + length > 10 && orientation == "right") return false;
-    if (col + length > 10 && orientation == "down") return false;
-    if (orientation == "right") {
-        for (let i = col; i < col+length; i++) {
-            if (board[row][i].hasShip()) return false;
-        }
-    } else {
-        for (let i = row; i < row+length; i++) {
-            if (board[i][col].hasShip()) return false;
-        }
-    }
-    return true;
-}

@@ -37,8 +37,10 @@ export class HTMLwriter {
                     cellButton.addEventListener('drop', (e) => {
                         e.preventDefault();
                         const selector = e.dataTransfer.getData("selector");
-                        console.log(selector)
-                        cellButton.appendChild(document.querySelector(selector));
+                        const ship = document.querySelector(selector);
+                        ship.dataset.col = colindex;
+                        ship.dataset.row = rowindex;
+                        cellButton.appendChild(ship);
                     });
 
                     cellButton.addEventListener('dragover', (e) => {
@@ -71,6 +73,7 @@ export class HTMLwriter {
             shipDiv.dataset.orientation = "right";
             shipDiv.dataset.col = "1";
             shipDiv.dataset.row = 2*i;
+            shipDiv.dataset.length = ship.length;
             shipDiv.dataset.id = i;
             shipDiv.style.paddingRight = `${(2*ship.length)-1}px`;
             shipDiv.draggable = true;
