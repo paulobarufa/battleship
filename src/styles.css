@@ -70,6 +70,22 @@ body {
     overflow-y: auto;
 }
 
+.log-message {
+    font-size: 14px;
+    margin: 5px;
+}
+
+.confirm {
+    padding: 5px 20px;
+    font-size: 14px;
+    background-color: orange;
+    border-radius: 20px;
+    border: 1px solid rgb(0, 0, 0);
+    color: var(--gray-text);
+    cursor: pointer;
+    text-align: center;
+}
+
 .player-stats, .computer-stats {
     box-sizing: border-box;
     width: 150px;

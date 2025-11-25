@@ -3,6 +3,11 @@ export class Ship {
     sunk = false;
     hits = 0;
     length;
+    name;
+    row;
+    col;
+    orientation;
+    index;
 
     constructor(name, length) {
         this.length = length;

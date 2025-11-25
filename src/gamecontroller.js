@@ -1,4 +1,5 @@
 import { HTMLwriter } from "./htmlwriter";
+import { Player } from "./player";
 
 /* 
 Game status:
@@ -9,10 +10,24 @@ Game status:
 export class GameController {
 
     constructor() {
+        this.humanPlayer = new Player(true);
+        this.computerPlayer = new Player(false);
 
+        this.status = 0;
+        
+        this.activePlayer = this.humanPlayer;
+
+        HTMLwriter.generateGrid(this.humanPlayer, this.status)
+        HTMLwriter.generateGrid(this.computerPlayer, this.status)
+
+        HTMLwriter.generateShips(this.humanPlayer.getShips())
+
+        HTMLwriter.log("Place your ships by dragging them and clicking them to rotate. Use the button to start the game.")
+
+        document.querySelector(".confirm").addEventListener("click", () => {this.placeShips()});
     }
 
-    static validateShipPositions() {
+    validateShipPositions() {
 
         const shipDivs = document.querySelectorAll(".player-ship")
         let locationArray = []
@@ -39,6 +54,29 @@ export class GameController {
 
         return new Set(locationArray).size == locationArray.length;
         
+    }
+
+    placeShips() {
+        if (this.validateShipPositions()) {
+            document.querySelector(".confirm").style.display = "none";
+
+            const shipDivs = document.querySelectorAll(".player-ship")
+
+            for (const ship of shipDivs) {
+                const col = parseInt(ship.dataset.col);
+                const row = parseInt(ship.dataset.row);
+                const index = parseInt(ship.dataset.id);
+                const orientation = ship.dataset.orientation;
+
+                this.humanPlayer.placeShip(col, row, index, orientation)
+            }
+            this.status = 1;
+            HTMLwriter.generateGrid(this.humanPlayer, this.status);
+
+
+        } else {
+            HTMLwriter.log("Ships must be placed inside the gameboard, and must not overlap each other.")
+        }
     }
 
 }

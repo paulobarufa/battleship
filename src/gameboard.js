@@ -34,7 +34,13 @@ export class Gameboard {
         }
     }
 
-    placeShip(col, row, ship, orientation) {
+    placeShip(col, row, index, orientation) {
+        const ship = this.ships[index];
+        ship.col = col;
+        ship.row = row;
+        ship.index = index;
+        ship.orientation = orientation;
+        
         const j = orientation == "right" ? col : row;
         for (let i=j; i < j + ship.length; i++) {
             this.board[orientation == "right" ? i : col][orientation == "right" ? row : i].setShip(ship);

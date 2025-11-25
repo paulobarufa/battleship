@@ -13,6 +13,10 @@ export class Player {
         return this.board.board;
     }
 
+    getShips() {
+        return this.board.ships;
+    }
+
     generateAttack() {
 
     }
@@ -44,5 +48,9 @@ export class Player {
     arrayContains(arr1, arr2){
         if(JSON.stringify(arr1).includes(JSON.stringify(arr2))) return true;
         return false;
+    }
+
+    placeShip(col, row, index, orientation) {
+        this.board.placeShip(col, row, index, orientation);
     }
 }
