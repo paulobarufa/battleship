@@ -135,9 +135,36 @@ body {
     z-index: 2;
 }
 
+.drag-ship {
+    cursor: pointer;
+}
+
 .beingDragged {
     display: none;
 }
+
+/* Status box styling */
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ship-container {
+    display: flex;
+    gap: 5px;
+}
+
+.ship-box {
+    height: 20px;
+    width: 20px;
+    background-color: rgb(99, 99, 255);
+}
+
+.box-hit {
+    background-color: rgb(255, 72, 72);
+}
+
 
 /* Footer styling */
 .footer {

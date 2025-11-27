@@ -35,7 +35,9 @@ export class Gameboard {
     }
 
     placeShip(col, row, index, orientation) {
-        const ship = this.ships[index];
+
+        let ship = index;
+        if (!(ship instanceof Ship)) ship = this.ships[index];
         ship.col = col;
         ship.row = row;
         ship.index = index;

@@ -53,14 +53,13 @@ export class HTMLwriter {
                 
                 if (cell.hit && cell.ship == null) cellButton.classList.add("miss");
                 if (cell.hit && cell.ship !== null) cellButton.classList.add("hit");
-
+                
                 boardDiv.appendChild(cellButton);
             })
         })
 
-        if (status > 0 && player.real) {
-            HTMLwriter.generatePlacedShips(player.getShips());
-        }
+        if (status > 0 && player.real) HTMLwriter.generatePlacedShips(player.getShips());
+        if (status > 0) HTMLwriter.generateStatus(player);
     }
 
     static generateShips(ships) {
@@ -69,7 +68,7 @@ export class HTMLwriter {
             const shipDiv = document.createElement("div");
             const ship = ships[i];
 
-            shipDiv.classList.add("player-ship")
+            shipDiv.classList.add("player-ship", "drag-ship")
             shipDiv.style.position = "absolute";
             shipDiv.style.height = "1.85em";
             shipDiv.style.width = `${2*ship.length}em`;
@@ -145,6 +144,25 @@ export class HTMLwriter {
             }
             
             document.querySelector(`.player-board > .cell[data-row='${ship.row}'][data-col='${ship.col}']`).appendChild(shipDiv)
+        }
+    }
+
+    static generateStatus(player) {
+        const statusDiv = document.querySelector((player.real ? ".player-stats" : ".computer-stats") + "> .stats-container");
+        statusDiv.innerHTML = "";
+
+        const ships = player.getShips();
+        for (const ship of ships) {
+            const shipContainer = document.createElement("div")
+            shipContainer.classList.add("ship-container")
+
+            for (let i=0; i < ship.length; i++) {
+                const shipBox = document.createElement("div")
+                shipBox.classList.add("ship-box")
+                if (ship.hits > i) shipBox.classList.add("box-hit");
+                shipContainer.append(shipBox)
+            }
+            statusDiv.append(shipContainer)
         }
     }
 

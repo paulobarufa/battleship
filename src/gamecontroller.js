@@ -71,8 +71,11 @@ export class GameController {
                 this.humanPlayer.placeShip(col, row, index, orientation)
             }
             this.status = 1;
-            HTMLwriter.generateGrid(this.humanPlayer, this.status);
 
+            this.computerPlayer.computerPlaceShips();
+
+            HTMLwriter.generateGrid(this.humanPlayer, this.status);
+            HTMLwriter.generateGrid(this.computerPlayer, this.status);
 
         } else {
             HTMLwriter.log("Ships must be placed inside the gameboard, and must not overlap each other.")

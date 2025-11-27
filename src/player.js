@@ -50,6 +50,23 @@ export class Player {
         return false;
     }
 
+    computerPlaceShips() {
+        const orientationArray = ["right", "down"]
+        
+        for (const ship of this.getShips()) {
+            
+            let position = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
+            let orientation = orientationArray[Math.round(Math.random())]
+
+            while(!this.validatePosition(position[1], position[0], orientation, ship.length)) {
+                position = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
+                orientation = orientationArray[Math.round(Math.random())]
+            }
+
+            this.placeShip(position[0], position[1], ship, orientation)
+        }
+    }
+
     placeShip(col, row, index, orientation) {
         this.board.placeShip(col, row, index, orientation);
     }
