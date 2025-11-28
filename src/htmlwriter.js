@@ -181,4 +181,12 @@ export class HTMLwriter {
         element.scrollIntoView();
     }
 
+    static cleanRestart() {
+        document.querySelector(".log").innerHTML = "";
+        document.querySelectorAll(".stats-container").forEach((element) => {
+            element.innerHTML = "";
+        })
+        document.querySelector(".confirm").style.display = "block";
+    }
+
 }

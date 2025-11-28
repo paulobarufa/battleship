@@ -92,6 +92,10 @@ export class GameController {
             HTMLwriter.log(`Your attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} hit your opponent's ${cell.name}. It is your turn again.`)
         }
         HTMLwriter.generateGrid(this.computerPlayer, this);
+        if (this.computerPlayer.allShipSunk()) {
+            document.querySelector(".modal-text").innerHTML = "BOSH! Nice win lad."
+            document.querySelector("#modal").style.display = "block";
+        }
     }
 
     computerAttack() {
@@ -113,6 +117,11 @@ export class GameController {
         }
         HTMLwriter.generateGrid(this.computerPlayer, this);
         HTMLwriter.generateGrid(this.humanPlayer, this);
+
+        if (this.humanPlayer.allShipSunk()) {
+            document.querySelector(".modal-text").innerHTML = "You really lost to the worst AI ever..."
+            document.querySelector("#modal").style.display = "block";
+        }
     }
 
 }

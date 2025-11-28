@@ -95,4 +95,8 @@ export class Player {
     placeShip(col, row, index, orientation) {
         this.board.placeShip(col, row, index, orientation);
     }
+
+    allShipSunk() {
+        return this.board.allShipSunk();
+    }
 }

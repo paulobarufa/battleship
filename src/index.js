@@ -3,4 +3,13 @@ import { GameController } from "./gamecontroller";
 import { Player } from "./player";
 import "./styles.css";
 
-const gameController = new GameController();
+let gameController = new GameController();
+
+const restartButton = document.querySelector(".restart")
+const modal = document.querySelector("#modal")
+
+restartButton.addEventListener("click", () => {
+    modal.style.display = "none";
+    HTMLwriter.cleanRestart();
+    gameController = new GameController();
+})
