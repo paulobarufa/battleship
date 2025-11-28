@@ -21,6 +21,10 @@ export class Player {
 
     }
 
+    receiveAttack(row, col) {
+        return this.board.receiveAttack(row, col);
+    }
+
     getRandomAttack() {
         let attack = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
         while (this.arrayContains(this.moveHistory, attack)) {

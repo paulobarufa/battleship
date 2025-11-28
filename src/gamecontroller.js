@@ -14,11 +14,9 @@ export class GameController {
         this.computerPlayer = new Player(false);
 
         this.status = 0;
-        
-        this.activePlayer = this.humanPlayer;
 
-        HTMLwriter.generateGrid(this.humanPlayer, this.status)
-        HTMLwriter.generateGrid(this.computerPlayer, this.status)
+        HTMLwriter.generateGrid(this.humanPlayer, this)
+        HTMLwriter.generateGrid(this.computerPlayer, this)
 
         HTMLwriter.generateShips(this.humanPlayer.getShips())
 
@@ -74,12 +72,25 @@ export class GameController {
 
             this.computerPlayer.computerPlaceShips();
 
-            HTMLwriter.generateGrid(this.humanPlayer, this.status);
-            HTMLwriter.generateGrid(this.computerPlayer, this.status);
+            HTMLwriter.generateGrid(this.humanPlayer, this);
+            HTMLwriter.generateGrid(this.computerPlayer, this);
 
         } else {
             HTMLwriter.log("Ships must be placed inside the gameboard, and must not overlap each other.")
         }
+    }
+
+    playerAttack(row, col) {
+        const cell = this.computerPlayer.receiveAttack(row, col);
+        if (cell == null) {
+            HTMLwriter.log(`Your attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} has missed. It is your opponent's turn.`)
+            //this.status = 2;
+        } else if (cell.isSunk()) {
+            HTMLwriter.log(`BOSH! Your attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} has SUNK your opponent's ${cell.name}. It is your turn again.`)
+        } else {
+            HTMLwriter.log(`Your attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} hit your opponent's ${cell.name}. It is your turn again.`)
+        }
+        HTMLwriter.generateGrid(this.computerPlayer, this);
     }
 
 }

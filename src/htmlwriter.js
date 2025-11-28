@@ -1,7 +1,8 @@
 export class HTMLwriter {
 
-    static generateGrid(player, status) {
+    static generateGrid(player, controller) {
 
+        const status = controller.status;
         const boardDiv = document.querySelector(player.real ? ".player-board" : ".computer-board");
         boardDiv.innerHTML = "";
         const board = player.getGrid();
@@ -47,12 +48,19 @@ export class HTMLwriter {
                         e.preventDefault();
                     });
                 }
+
+                if (!player.real && status == 1 && !cell.hit) {
+                    cellButton.classList.add("clickable");
+                    cellButton.addEventListener("click", () => {controller.playerAttack(rowindex, colindex)});
+                }
                 
                 cellButton.dataset.row = rowindex;
                 cellButton.dataset.col = colindex;
                 
                 if (cell.hit && cell.ship == null) cellButton.classList.add("miss");
                 if (cell.hit && cell.ship !== null) cellButton.classList.add("hit");
+
+                if (cell.ship !== null) cellButton.classList.add("hit");
                 
                 boardDiv.appendChild(cellButton);
             })

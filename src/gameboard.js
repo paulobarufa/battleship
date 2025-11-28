@@ -26,12 +26,14 @@ export class Gameboard {
         ]
     }
 
-    receiveAttack(x, y) {
-        const attackedCell = this.board[x][y]
+    receiveAttack(row, col) {
+        const attackedCell = this.board[row][col]
         attackedCell.receiveHit();
         if (attackedCell.ship !== null) {
             attackedCell.ship.hit();
+            return attackedCell.ship;
         }
+        return null;
     }
 
     placeShip(col, row, index, orientation) {
@@ -45,7 +47,7 @@ export class Gameboard {
         
         const j = orientation == "right" ? col : row;
         for (let i=j; i < j + ship.length; i++) {
-            this.board[orientation == "right" ? i : col][orientation == "right" ? row : i].setShip(ship);
+            this.board[orientation == "right" ? row : i][orientation == "right" ? i : col].setShip(ship);
         }
     }
 
