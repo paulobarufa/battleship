@@ -17,10 +17,6 @@ export class Player {
         return this.board.ships;
     }
 
-    generateAttack() {
-
-    }
-
     receiveAttack(row, col) {
         return this.board.receiveAttack(row, col);
     }
@@ -30,6 +26,7 @@ export class Player {
         while (this.arrayContains(this.moveHistory, attack)) {
             attack = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
         }
+        this.moveHistory[this.moveHistory.length] = attack;
         return attack;
     }
 

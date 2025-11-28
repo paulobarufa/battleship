@@ -84,13 +84,35 @@ export class GameController {
         const cell = this.computerPlayer.receiveAttack(row, col);
         if (cell == null) {
             HTMLwriter.log(`Your attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} has missed. It is your opponent's turn.`)
-            //this.status = 2;
+            this.status = 2;
+            setTimeout(() => { this.computerAttack(); }, 1500);
         } else if (cell.isSunk()) {
             HTMLwriter.log(`BOSH! Your attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} has SUNK your opponent's ${cell.name}. It is your turn again.`)
         } else {
             HTMLwriter.log(`Your attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} hit your opponent's ${cell.name}. It is your turn again.`)
         }
         HTMLwriter.generateGrid(this.computerPlayer, this);
+    }
+
+    computerAttack() {
+        const attackCoords = this.computerPlayer.getRandomAttack();
+        const row = attackCoords[0];
+        const col = attackCoords[1];
+
+        const cell = this.humanPlayer.receiveAttack(row, col);
+
+        if (cell == null) {
+            HTMLwriter.log(`Your opponent's attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} has missed. It is your turn.`)
+            this.status = 1;
+        } else if (cell.isSunk()) {
+            HTMLwriter.log(`BOSH! Your opponent has SUNK your ${cell.name}.`)
+            setTimeout(() => { this.computerAttack(); }, 1500);
+        } else {
+            HTMLwriter.log(`Your opponent's attack on ${String.fromCharCode(65 + row) + (col + 1).toString()} hit your ${cell.name}.`)
+            setTimeout(() => { this.computerAttack(); }, 1500);
+        }
+        HTMLwriter.generateGrid(this.computerPlayer, this);
+        HTMLwriter.generateGrid(this.humanPlayer, this);
     }
 
 }

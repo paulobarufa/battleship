@@ -59,8 +59,6 @@ export class HTMLwriter {
                 
                 if (cell.hit && cell.ship == null) cellButton.classList.add("miss");
                 if (cell.hit && cell.ship !== null) cellButton.classList.add("hit");
-
-                if (cell.ship !== null) cellButton.classList.add("hit");
                 
                 boardDiv.appendChild(cellButton);
             })
