@@ -41,10 +41,34 @@ export class Player {
             for (let i = col; i < col+length; i++) {
                 if (board[row][i].hasShip()) return false;
             }
+            if (row > 0) {
+                for (let i = col; i < col+length; i++) {
+                    if (board[row-1][i].hasShip()) return false;
+                }
+            }
+            if (row < 9) {
+                for (let i = col; i < col+length; i++) {
+                    if (board[row+1][i].hasShip()) return false;
+                }
+            }
+            if (col > 0 && board[row][col-1].hasShip()) return false;
+            if (col < 9 && board[row][col+1].hasShip()) return false;
         } else {
             for (let i = row; i < row+length; i++) {
                 if (board[i][col].hasShip()) return false;
             }
+            if (col > 0) {
+                for (let i = row; i < row+length; i++) {
+                    if (board[i][col-1].hasShip()) return false;
+                }
+            }
+            if (col < 9) {
+                for (let i = row; i < row+length; i++) {
+                    if (board[i][col+1].hasShip()) return false;
+                }
+            }
+            if (row > 0 && board[row-1][col].hasShip()) return false;
+            if (row < 9 && board[row+1][col].hasShip()) return false;
         }
         return true;
     }
